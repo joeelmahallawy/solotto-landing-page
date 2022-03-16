@@ -11,11 +11,13 @@ const TicketSection = () => {
       borderTop={`1px solid ${themes.colors.divider}`}
       color="white"
       p="1%"
+      id="types-of-tickets"
       flexDir="column"
     >
       <Heading
         fontWeight="extrabold"
-        fontSize={["24px", "28px", "40px", "44px", "48px", "54px"]}
+        // fontSize={["24px", "28px", "40px", "44px", "48px", "54px"]}
+        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem", "2.5rem", "3rem"]}
         textDecor="underline"
         mt="1%"
         // color="red"

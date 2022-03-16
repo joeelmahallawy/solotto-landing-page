@@ -5,6 +5,7 @@ import GoldenTicket from "../../attachments/Golden-ticket.svg";
 const HomePage = () => {
   return (
     <Center
+      id="home"
       minH="55vh"
       color="white"
       display={["block", "block", "flex", "flex", "flex"]}

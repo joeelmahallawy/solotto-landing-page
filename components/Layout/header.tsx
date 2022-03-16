@@ -66,7 +66,7 @@ const Header = () => {
           >
             <Link
               activeClass="active"
-              //   to="section1"
+              to="home"
               spy={true}
               smooth={true}
               offset={-70}
@@ -83,7 +83,7 @@ const Header = () => {
           >
             <Link
               activeClass="active"
-              //   to="section1"
+              to="types-of-tickets"
               spy={true}
               smooth={true}
               offset={-70}
@@ -100,7 +100,7 @@ const Header = () => {
           >
             <Link
               activeClass="active"
-              //   to="section1"
+              to="why-we-different"
               spy={true}
               smooth={true}
               offset={-70}
@@ -116,7 +116,7 @@ const Header = () => {
           >
             <Link
               activeClass="active"
-              //   to="section1"
+              to="roadmap"
               spy={true}
               smooth={true}
               offset={-70}

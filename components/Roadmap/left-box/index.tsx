@@ -20,7 +20,8 @@ const LeftBox = ({ children, icon }: Props) => {
         padding="2rem"
         borderRadius="40px 0 40px 0"
         minHeight="100px"
-        width={["auto", "auto", "300px", "400px", "500px"]}
+        // width={["auto", "auto", "300px", "400px", "500px"]}
+        width={["auto", "auto", "400px", "500px", "600px"]}
       >
         {children}
       </Box>

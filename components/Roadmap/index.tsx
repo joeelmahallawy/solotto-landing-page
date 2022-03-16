@@ -19,6 +19,7 @@ import styles from "./styles";
 const RoadmapSection = () => {
   return (
     <Center
+      id="roadmap"
       borderTop={`1px solid ${themes.colors.divider}`}
       color="white"
       p="1%"
@@ -27,7 +28,7 @@ const RoadmapSection = () => {
     >
       <Heading
         fontWeight="extrabold"
-        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem", "1.5rem", "3rem"]}
+        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem", "2.5rem", "3rem"]}
         textDecor="underline"
         mt="1%"
         textUnderlineOffset="8px"
@@ -35,7 +36,7 @@ const RoadmapSection = () => {
         Roadmap
       </Heading>
 
-      <Container maxW="container.xl">
+      <Center maxW="container.xl">
         <Flex flexDirection="column">
           <Flex display={["none", "none", "flex"]}>
             <Box mt="5rem">
@@ -85,7 +86,7 @@ const RoadmapSection = () => {
                   <Flex flexDir="column">
                     <Heading fontSize="1.75rem">
                       {" "}
-                      5. Possibly investments in fractional shares of casinos in
+                      5. Allocation of pool is dedicated to casinos in the
                       metaverse
                     </Heading>
                     <Text ml="auto" color="green.500">
@@ -93,10 +94,47 @@ const RoadmapSection = () => {
                     </Text>
                   </Flex>
                   <Text fontWeight="light">
-                    Once the Solotto gambling community has grown, holders of
-                    Solotto tickets (no matter when they were bought) will vote
-                    on ticket rewards and allocation of each pool that will go
-                    towards investing in casinos in the metaverse.
+                    By the fifth Jackpot, all holders of Solotto tickets (no
+                    matter when they were bought) will vote on sixth pool's
+                    allocation of funds that will be put towards investing in
+                    casinos in the metaverse.
+                  </Text>
+                </>
+              </LeftBox>
+              <LeftBox>
+                <>
+                  <Flex flexDir="column">
+                    <Heading fontSize="1.75rem">
+                      {" "}
+                      7. $GMBL token distribution
+                    </Heading>
+                    <Text ml="auto" color="green.500">
+                      Q2 2022
+                    </Text>
+                  </Flex>
+                  <Text fontWeight="light">
+                    Holders of metaverse casino will be paid out in $GMBL. To
+                    get $GMBL, users can either buy Solotto tickets and enter
+                    the jackpots (while also getting fractional shares of the
+                    casino) OR can buy $GMBL off the secondary market.
+                  </Text>
+                </>
+              </LeftBox>
+              <LeftBox>
+                <>
+                  <Flex flexDir="column">
+                    <Heading fontSize="1.75rem">
+                      {" "}
+                      9. Continue Jackpots and metaverse investing
+                    </Heading>
+                    <Text ml="auto" color="green.500">
+                      Q2 2022
+                    </Text>
+                  </Flex>
+                  <Text fontWeight="light">
+                    We will continue hosting the bi-weekly jackpot draws and put
+                    more and more towards investing into metaverse casinos and
+                    giving holders fractional shares of the revenue.
                   </Text>
                 </>
               </LeftBox>
@@ -106,7 +144,7 @@ const RoadmapSection = () => {
               <Box {...styles.verticalLine} />
             </Flex>
 
-            <Center flexDir="column" mt="25%">
+            <Center flexDir="column" mt="5%">
               <RightBox>
                 <>
                   <Center flexDir="column">
@@ -157,20 +195,40 @@ const RoadmapSection = () => {
                 <>
                   <Flex flexDir="column">
                     <Heading fontSize="1.75rem">
-                      6. Jackpots with new allocations
+                      6. Jackpots with new allocations towards metaverse casino
                     </Heading>
                     <Text ml="auto" color="green.500">
                       Q2 2022
                     </Text>
                   </Flex>
                   <Text fontWeight="light">
-                    The Solotto system will then continue to have bi-weekly
-                    jackpots with a voted on % being allocated towards investing
-                    in the metaverse. People who buy into the new Jackpots will
-                    have their shares accordingly, for e.g. buying a single
-                    golden ticket will contribute to 0.4% of the total pool,
-                    therefore the buyer will own 0.4% of the metaverse land
-                    bought with THAT jackpot, and so on and so forth.
+                    Starting from the sixth pool, people who buy into Solotto
+                    tickets will also recieve fractional shares of the metaverse
+                    casino that is bought with the funding from THAT pool. All
+                    revenue made from the metaverse plot will then be paid out
+                    to holders in $GMBL. For e.g. if you buy 3 golden tickets in
+                    the sixth pool, you will own ~1.2% (~0.4% each) of the plot
+                    bought with the sixth pool's allocation and receive ~1.2% of
+                    the revenue made from the casino in $GMBL.
+                  </Text>
+                </>
+              </RightBox>
+
+              <RightBox>
+                <>
+                  <Flex flexDir="column">
+                    <Heading fontSize="1.75rem">
+                      {" "}
+                      8. $GMBL token integrated within website
+                    </Heading>
+                    <Text ml="auto" color="green.500">
+                      Q2 2022
+                    </Text>
+                  </Flex>
+                  <Text fontWeight="light">
+                    $GMBL will be used as a gateway token for all games on our
+                    website. Users can play all types of gambling and betting
+                    games with $GMBL.
                   </Text>
                 </>
               </RightBox>
@@ -179,7 +237,7 @@ const RoadmapSection = () => {
 
           <MobileRoadMapComponent />
         </Flex>
-      </Container>
+      </Center>
     </Center>
   );
 };

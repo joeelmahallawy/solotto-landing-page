@@ -3,7 +3,7 @@ import theme from "../../themes";
 const styles = {
   verticalLine: {
     width: "20px",
-    height: ["1100px", "1100px", "1400px", "1300px", "1200px"],
+    height: ["1100px", "1200px", "2300px", "2000px", "1800px"],
     marginTop: "10rem",
     borderRadius: "10px",
 

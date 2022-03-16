@@ -15,6 +15,7 @@ import allocationPic from "../../attachments/allocation-chart.png";
 const WhyWeDifferentSection = () => {
   return (
     <Center
+      id="why-we-different"
       borderTop={`1px solid ${themes.colors.divider}`}
       color="white"
       p="1%"
@@ -24,7 +25,7 @@ const WhyWeDifferentSection = () => {
       <Heading
         fontWeight="extrabold"
         // fontSize={["20px", "24px", "32px", "40px", "48px", "54px"]}
-        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem", "1.5rem", "3rem"]}
+        fontSize={["0.75rem", "1rem", "1.25rem", "1.25rem", "2.5rem", "3rem"]}
         textDecor="underline"
         mt="1%"
         textUnderlineOffset="8px"
@@ -43,7 +44,7 @@ const WhyWeDifferentSection = () => {
         ]}
         p="3%"
       >
-        <UnorderedList w="100%">
+        <UnorderedList mb={[5, 5, 5, 0, 0]} w="100%">
           <ListItem>Cheap ticket with chances of 40x your money</ListItem>
           <ListItem>
             In traditional lotteries, you have a one-in-a-million chance, here
