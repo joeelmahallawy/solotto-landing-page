@@ -1,15 +1,14 @@
-// pragma solidity 0.8.12;
+pragma solidity ^0.8.12;
 // SPDX-License-Identifier: MIT
 
- 
 contract Solotto {
     uint32 public bronzeTicketTokenId; // goes from [223, 333] inclusive
     uint32 public silverTicketTokenId; // goes from [112, 222] inclusive
     uint32 public goldTicketTokenId; // goes from [1,111] inclusive
 
     // initialize owner, ticket numbers, and ipfs base uri of NFT folder
-    constructor(string memory _ipfsBaseURI)  {
-        baseURI=_ipfsBaseURI;
+    constructor()  {
+        baseURI="https://solotto.s3.filebase.com/Solotto-NFTs";
         owner=payable(msg.sender);
         bronzeTicketTokenId=1;
         silverTicketTokenId=112;
@@ -32,22 +31,27 @@ contract Solotto {
     mapping(uint32 => address) private _owners;
 
     // tokenId => ipfsBaseURI
-    mapping(uint32=>string) public tokenURIs;
+    mapping(uint32 => string) public tokenURIs;
+
+    // user => theirOwnedTokens
+    mapping(address=>uint32[]) public ownedTokens;
  
     // –––––––––––––––––––––––FUNCTIONS–––––––––––––––––––––––––
-     function name() public view returns (string memory) { // gets name of token: Solotto
+    function getContractAddress() public view returns(address){
+        return address(this);
+    }
+    function name() public view returns (string memory) { // gets name of token: Solotto
         return tokenName;
     }
 
     function symbol() public view returns (string memory) { // gets symbol of token: SLTO
-        return tokenSymbol; 
+        return tokenSymbol;
     }
 
     function ownerOf(uint32 tokenId) public view returns (address) { // find owner of this NFT
         require(_owners[tokenId] != address(0), "Token hasn't been minted yet"); // ensure that this token has been minted
         return _owners[tokenId]; // grab owner from owners array
     }
-
 
     // –––––––––––––––––––––––TICKET MINTING FUNCTIONS–––––––––––––––––––––––––
     function mintBronzeTicket(address minter) public payable { // mints an NFT
@@ -56,51 +60,54 @@ contract Solotto {
         require(msg.value>=10**17,"Not enough to mint a Bronze ticket"); // ensure that minter is sending equal or more than 0.1 SOL
 
         _owners[bronzeTicketTokenId] = minter; // this token now belongs to the minter
-        tokenURIs[bronzeTicketTokenId]=string(abi.encodePacked(baseURI,"/",toString(bronzeTicketTokenId))); // this token now points to it's relative IPFS path
+        ownedTokens[minter].push(bronzeTicketTokenId); // push token to their owned tokens
+        tokenURIs[bronzeTicketTokenId]=string(abi.encodePacked(baseURI,"/",toString(bronzeTicketTokenId),".svg")); // this token now points to it's relative IPFS path
         bronzeTicketTokenId++; // increment counter
     }
 
     function mintSilverTicket(address minter) public payable { // mints an NFT
         require(minter != address(0), "Cannot mint to zero address"); // ensure that the minter isn't a 0 address
         require(silverTicketTokenId<223, "Sorry, there are no more Silver tickets"); // ensure that we're under NFT #223
-        require(msg.value>=20**17,"Not enough to mint a Silver ticket"); // ensure that minter is sending equal or more than 0.2 SOL 
+        require(msg.value>=2*(10**17),"Not enough to mint a Silver ticket"); // ensure that minter is sending equal or more than 0.2 SOL 
 
         _owners[silverTicketTokenId] = minter; // this token now belongs to the minter
-        tokenURIs[silverTicketTokenId]=string(abi.encodePacked(baseURI,"/",toString(silverTicketTokenId))); // this token now points to it's relative IPFS path
+        ownedTokens[minter].push(silverTicketTokenId); // push token to their owned tokens        
+        tokenURIs[silverTicketTokenId]=string(abi.encodePacked(baseURI,"/",toString(silverTicketTokenId),".svg")); // this token now points to it's relative IPFS path
         silverTicketTokenId++;
     }
 
     function mintGoldTicket(address minter) public payable { // mints an NFT
         require(minter != address(0), "Cannot mint to zero address"); // ensure that the minter isn't a 0 address
         require(goldTicketTokenId<112, "Sorry, there are no more Gold tickets"); // ensure that we're under NFT #112
-        require(msg.value>=30**17,"Not enough to mint a Gold ticket"); // ensure that minter is sending equal or more than 0.3 SOL
+        require(msg.value>=3*(10**17),"Not enough to mint a Gold ticket"); // ensure that minter is sending equal or more than 0.3 SOL
         
         _owners[goldTicketTokenId] = minter; // this token now belongs to the minter
-        tokenURIs[goldTicketTokenId]=string(abi.encodePacked(baseURI,"/",toString(goldTicketTokenId))); // this token now points to it's relative IPFS path
+        ownedTokens[minter].push(goldTicketTokenId); // push token to their owned tokens        
+        tokenURIs[goldTicketTokenId]=string(abi.encodePacked(baseURI,"/",toString(goldTicketTokenId),".svg")); // this token now points to it's relative IPFS path
         goldTicketTokenId++;
     }
 
 
     // –––––––––––––––––––––––PRIZE DISTRIBUTION FUNCTIONS–––––––––––––––––––––––––
-    function distributeJackpotBronze(uint64 _amount)public { 
+    function distributeJackpotBronze()public {
         require(msg.sender==owner,"Only the Dev can distribute the jackpots"); // only the dev can call this function
-        uint32 luckyWinner=uint32(block.timestamp) % 111 + 1 + 222; // generate random number between [223,333]
+        uint32 luckyWinner = uint32(block.timestamp) % 111 + 1 + 222; // generate random number between [223,333]
         require(payable(_owners[luckyWinner]) != address(0)); // ensure that the selected winner isn't a zero address
-        payable(_owners[luckyWinner]).transfer(_amount); // send the lucky winners their prize
+        payable(_owners[luckyWinner]).transfer(66*(10**17)); // send the owner of the lucky winner ticket 6.6 SOL
     }
 
-    function distributeJackpotSilver(uint64 _amount)public { 
+    function distributeJackpotSilver()public { 
         require(msg.sender==owner,"Only the Dev can distribute the jackpots"); // only the dev can call this function
         uint32 luckyWinner=uint32(block.timestamp) % 111 + 1 + 111; // generate random number between [112,222]
         require(payable(_owners[luckyWinner]) != address(0)); // ensure that the selected winner isn't a zero address
-        payable(_owners[luckyWinner]).transfer(_amount); // send the lucky winners their prize
+        payable(_owners[luckyWinner]).transfer(11*(10**18)); // send the owner of the lucky winner ticket 11 SOL
     }
 
-    function distributeJackpotGold(uint64 _amount)public { 
+    function distributeJackpotGold()public { 
         require(msg.sender==owner,"Only the Dev can distribute the jackpots"); // only the dev can call this function
         uint32 luckyWinner=uint32(block.timestamp) % 111 + 1; // generate random number between [1,111]
         require(payable(_owners[luckyWinner]) != address(0)); // ensure that the selected winner isn't a zero address
-        payable(_owners[luckyWinner]).transfer(_amount); // send the lucky winners their prize
+        payable(_owners[luckyWinner]).transfer(16*(10**18)); // send the owner of the lucky winner ticket 16 SOL
     }
 
 
@@ -116,7 +123,11 @@ contract Solotto {
         // (bool success, ) = owner.call{value: _amount}("");
         // require(success, "Failed to send SOL");
     }
-
+    
+    function changeOwner(address payable newOwner) public {
+        require(msg.sender==owner,"You cannot change the owner of this contract");
+        owner = newOwner;
+    }
 
     function toString(uint32 value) public pure returns (string memory) { // this function turns a number into a string so 1 => "1"
         if (value == 0) {
@@ -147,3 +158,4 @@ contract Solotto {
 
     //     _owners[tokenID] = receiver; // the NFT now points to its owner (receiver)
     // }
+
